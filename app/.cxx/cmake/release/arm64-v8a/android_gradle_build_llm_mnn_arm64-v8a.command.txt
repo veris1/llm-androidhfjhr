@@ -1,0 +1,7 @@
+Executable : /home/paulius/Android/Sdk/cmake/3.10.2.4988404/bin/ninja
+arguments : 
+-C
+/home/paulius/Android/mnn-llm/android/app/.cxx/cmake/release/arm64-v8a
+llm_mnn
+jvmArgs : 
+

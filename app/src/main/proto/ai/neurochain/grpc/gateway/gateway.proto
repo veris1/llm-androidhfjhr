@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package ai.neurochain.grpc.gateway;
+
+option java_multiple_files = true;
+option java_outer_classname = "GRPCWorkerDataProto";
+
+// Message to encapsulate the request data
+message TaskRequest {
+  string signature = 1;
+  string workerId = 2;
+  string prompt = 3;
+  string model = 4;
+  int32 maxTokens = 5;
+  double temperature = 6;
+  double topP = 7;
+  double frequencyPenalty = 8;
+  double presencePenalty = 9;
+  string messageId = 10;
+}
+
+message Registration {
+  string signature = 1;
+  string workerId = 2;
+}
+
+// Message to encapsulate the data you want to return
+message TaskResponse {
+  string signature = 1;
+  string workerId = 2;
+  string dataOutput = 3;
+  string dataType = 4;
+  string messageId = 5;
+}
+
+// Message to indicate success or failure
+message StatusResponse {
+  bool success = 1;
+  string message = 2; // Optional message, for errors or additional information
+  string messageId = 3; // Optional message id, for tracking
+}
+
+// Service definitions
+service WorkerDataService {
+  // Stream TaskRequest to client
+  rpc streamTaskRequests (Registration) returns (stream TaskRequest);
+
+  // Stream TaskResponse from client
+  rpc streamTaskResponses (stream TaskResponse) returns (StatusResponse);
+
+}
